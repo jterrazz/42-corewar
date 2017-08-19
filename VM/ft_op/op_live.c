@@ -1,0 +1,34 @@
+#include "vm.h"
+
+static int get_player_id(t_flags *f, int nb)
+{
+	int i;
+
+	i = 0;
+	while (i < f->nb_players)
+	{
+		if (f->players[i].nb == nb)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+void op_live(t_flags *f, t_process *process)
+{
+	int nb_player;
+	int id_player;
+
+	nb_player = get_dir(f, process->i + 1, 4);
+	if (f->print_operations)
+	   ft_printf(" %d", nb_player);
+	nb_player = ~nb_player + 1;
+	id_player = get_player_id(f, nb_player); // TODO inverser bits ?
+	if (id_player >= 0)
+	{
+		process->nb_lives++;
+		f->nb_lives_in_round++;
+		f->last_player_alive = &(f->players[id_player]);
+	}
+	move_index(f, process, 5, 1);
+}
