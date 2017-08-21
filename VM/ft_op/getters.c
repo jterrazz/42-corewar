@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   getters.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plogan <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/21 14:31:38 by plogan            #+#    #+#             */
+/*   Updated: 2017/08/21 14:40:39 by plogan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
-
 // TODO CHECK ALL CARRY ARE GOOD
-int	get_dir(t_flags *f, int index, int size)
+int		get_dir(t_flags *f, int index, int size)
 {
-	int ret;
+	int		ret;
 
 	if (size == 2)
 	{
@@ -23,9 +34,9 @@ int	get_dir(t_flags *f, int index, int size)
 	return (0);
 }
 
-int	get_reg_id(t_flags *f, int index)
+int		get_reg_id(t_flags *f, int index)
 {
-	int ret;
+	int		ret;
 
 	ret = f->arena[MODULO_MEMORY(index)].value & 0xFF;
 	if (!is_reg(ret))
@@ -33,9 +44,9 @@ int	get_reg_id(t_flags *f, int index)
 	return (ret - 1);
 }
 
-int get_ind(t_flags *f, t_process *process, int index, int use_idx)
+int		get_ind(t_flags *f, t_process *process, int index, int use_idx)
 {
-	int to_go;
+	int		to_go;
 
 	if (use_idx)
 		to_go = process->i + MODULO_IDX(get_dir(f, index, 2));
@@ -45,9 +56,10 @@ int get_ind(t_flags *f, t_process *process, int index, int use_idx)
 	return (get_dir(f, to_go, 4));
 }
 
-int	get_value_for_VAR_4B(t_flags *f, t_process *process, int *index, char type, int *err)
+int		get_value_for_VAR_4B(t_flags *f, t_process *process,
+		int *index, char type, int *err)
 {
-	int ret;
+	int		ret;
 
 	*err = 0;
 	ret = 0;
@@ -79,9 +91,10 @@ int	get_value_for_VAR_4B(t_flags *f, t_process *process, int *index, char type, 
 	return (ret);
 }
 
-int	get_value_for_VAR_2B(t_flags *f, t_process *process, int *index, char type, int *err)
+int		get_value_for_VAR_2B(t_flags *f, t_process *process,
+		int *index, char type, int *err)
 {
-	int ret;
+	int		ret;
 
 	*err = 0;
 	ret = 0;

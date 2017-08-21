@@ -6,13 +6,13 @@
 /*   By: jterrazz <jterrazz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:31:24 by jterrazz          #+#    #+#             */
-/*   Updated: 2017/08/07 15:01:38 by jterrazz         ###   ########.fr       */
+/*   Updated: 2017/08/21 14:27:58 by plogan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(char **str)
+int		ft_atoi(char **str)
 {
 	long	res;
 	int		is_neg;
@@ -37,7 +37,7 @@ int	ft_atoi(char **str)
 	return ((int)res);
 }
 
-int	ft_atoi_int(char **str, int *is_int)
+int		ft_atoi_int(char **str, int *is_int)
 {
 	long	res;
 	int		is_neg;
@@ -67,27 +67,27 @@ int	ft_atoi_int(char **str, int *is_int)
 
 long	ft_atoi_long(const char *str)
 {
-    long i;
-    long res;
-    long is_neg;
+	long	i;
+	long	res;
+	long	is_neg;
 
-    i = 0;
-    res = 0;
+	i = 0;
+	res = 0;
 	is_neg = 0;
-    while (*(str + i) == '\t' || *(str + i) == ' ' || *(str + i) == '\f'
-           || *(str + i) == '\n' || *(str + i) == '\r' || *(str + i) == '\v')
-        i++;
-    if (*(str + i) == '-')
-        is_neg = 1;
-    if (*(str + i) == '-' || *(str + i) == '+')
-        i++;
-    while (*(str + i) && *(str + i) >= '0' && *(str + i) <= '9')
-    {
-        res *= 10;
-        res += *(str + i) - '0';
-        i++;
-    }
-    if (is_neg)
-        res *= -1;
-    return (res);
+	while (*(str + i) == '\t' || *(str + i) == ' ' || *(str + i) == '\f'
+			|| *(str + i) == '\n' || *(str + i) == '\r' || *(str + i) == '\v')
+		i++;
+	if (*(str + i) == '-')
+		is_neg = 1;
+	if (*(str + i) == '-' || *(str + i) == '+')
+		i++;
+	while (*(str + i) && *(str + i) >= '0' && *(str + i) <= '9')
+	{
+		res *= 10;
+		res += *(str + i) - '0';
+		i++;
+	}
+	if (is_neg)
+		res *= -1;
+	return (res);
 }

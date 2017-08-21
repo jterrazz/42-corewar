@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_fork.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plogan <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/21 15:04:55 by plogan            #+#    #+#             */
+/*   Updated: 2017/08/21 15:05:07 by plogan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 //create a copy of the process a end or process list
 
 static int	get_next_nb_process(t_flags *f, int last_nb_process)
 {
-	t_process *process;
-	int i;
+	t_process	*process;
+	int			i;
 
 	i = last_nb_process;
 	process = f->first_process;
@@ -22,7 +34,7 @@ static int	get_next_nb_process(t_flags *f, int last_nb_process)
 	return (i);
 }
 
-void copy_process(t_process *dest, t_process *src)
+void		copy_process(t_process *dest, t_process *src)
 {
 	int i;
 
@@ -44,7 +56,7 @@ void copy_process(t_process *dest, t_process *src)
 	dest->next = NULL;
 }
 
-void make_fork(t_flags *f, t_process *process, int is_long)
+void		make_fork(t_flags *f, t_process *process, int is_long)
 {
 	t_process	*new_process;
 	int			i_to_add;
@@ -52,7 +64,8 @@ void make_fork(t_flags *f, t_process *process, int is_long)
 	if (!(new_process = (t_process *)malloc(sizeof(t_process))))
 		ft_error(f, 12); // TODO Deal with malloc error
 	copy_process(new_process, process);
-	new_process->nb_process = get_next_nb_process(f, new_process->player->last_nb_process);
+	new_process->nb_process = get_next_nb_process(f,
+			new_process->player->last_nb_process);
 	new_process->player->last_nb_process = new_process->nb_process;
 	f->first_process->is_head = 0;
 	new_process->is_head = 1;
@@ -65,10 +78,9 @@ void make_fork(t_flags *f, t_process *process, int is_long)
 		ft_printf(" %d (%d)", i_to_add, new_process->i + i_to_add);
 	move_index(f, process, 3, 1);
 	move_index(f, new_process, i_to_add, 0); // test if its pushed to the end or list of processes with 3 processes (2 fork and something else)
-
 }
 
-void op_fork(t_flags *f, t_process *process)
+void		op_fork(t_flags *f, t_process *process)
 {
 	make_fork(f, process, 0);
 }
